@@ -94,9 +94,9 @@ let g:vimtex_view_method = 'mupdf'
 "  Enable basic mouse behavior such as resizing buffers  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set mouse=a
-if exists('$TMUX')  " Support resizing in tmux
-  set ttymouse=xterm2
-endif
+"if exists('$TMUX')  " Support resizing in tmux
+"  set ttymouse=xterm2
+"endif
 
 let g:tmux_navigator_no_mappings = 1
 
