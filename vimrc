@@ -1,1 +1,1 @@
-/home/n214/.vimrc
+/home/n214/dotfile/.vimrc
