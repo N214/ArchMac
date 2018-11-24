@@ -1,6 +1,22 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+# Config termite
+export TERM=linux
+
+#function zle-line-init() {
+#  if (( ${+terminfo[smkx]})); then
+#    echoto smkx
+#  fi
+#}
+#
+#function zle-line-finish() {
+#  if (( ${+terminfo[rmkx]})); then
+#    echoto rmkx
+#  fi
+#}
+#
+
 # Path to your oh-my-zsh installation.
   export ZSH="/home/n214/.oh-my-zsh"
 
@@ -110,6 +126,7 @@ source ~/.antigen.zsh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 export XDG_CURRENT_DESKTO=KDE
 alias orphans="pacman -Qdt" # List orphan programs
+alias pu="sudo pacman -Syu"
 alias p="sudo pacman"
 alias SS="sudo systemctl"
 alias v="vim --servername VIM"

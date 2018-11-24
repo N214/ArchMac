@@ -82,11 +82,16 @@ set splitbelow                                              " New split panel bo
 set foldmethod=manual
 set nofoldenable
 let g:session_autosave = 'no'
+
+"" Past command
+nnoremap P o<ESC>p
+nnoremap <leader>p O<ESC>p
+
 """""""""""""""""""""""""""""""
 "  Vim-latex-preview setting  "
 """""""""""""""""""""""""""""""
-autocmd Filetype tex setl updatetime=1
-let g:livepreview_previewer = 'okular'
+autocmd Filetype tex setl updatetime=5
+let g:livepreview_previewer = 'mupdf'
 let g:vimtex_view_method = 'mupdf'
 "let g:livepreview_engine = 'xelatex'
 
@@ -112,11 +117,14 @@ inoremap jk <ESC>
 let maplocalleader = ";"
 let mapleader = ','
 
-"noremap <C-h> <C-W>h
-"noremap <C-j> <C-W>j
-"noremap <C-k> <C-W>k
-"noremap <C-l> <C-W>l
-"noremap <leader>l :Align
+noremap <silent> <leader>R :RMarkdown pdf<CR> 
+noremap ;; :%s:::g<Left><Left><Left>
+noremap ;' :%s:::cg<Left><Left><Left><Left>
+noremap <C-h> <C-W>h
+noremap <C-j> <C-W>j
+noremap <C-k> <C-W>k
+noremap <C-l> <C-W>l
+noremap <leader>l :Align
 nnoremap <leader>a :Ack<space>
 nnoremap <leader>d :NERDTreeToggle<CR>
 nnoremap <leader>f :NERDTreeFind<CR>
@@ -282,6 +290,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'wikitopian/hardmode'
 Plug 'francoiscabrol/ranger.vim'
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 call plug#end()
 
 """""""""""""""""""""""""
@@ -515,4 +524,36 @@ augroup fold_vimrc
 augroup END
 
 nnoremap <silent> <leader><Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
-vnoremap <leader><space> zf
+nnoremap <leader><Space> zm
+
+
+if has ('nvim') 
+  tnoremap <expr> <A-r> '<C-\><C-N>"'.nr2char(getchar()).'pi'
+  tnoremap <Esc> <C-\><C-n>
+  tnoremap <M-[> <Esc>
+  tnoremap <C-v><Esc> <Esc>
+  set inccommand=split
+
+
+ " Terminal mode:
+  tnoremap <M-h> <c-\><c-n><c-w>h
+  tnoremap <M-j> <c-\><c-n><c-w>j
+  tnoremap <M-k> <c-\><c-n><c-w>k
+  tnoremap <M-l> <c-\><c-n><c-w>l
+  " Insert mode:
+  inoremap <M-h> <Esc><c-w>h
+  inoremap <M-j> <Esc><c-w>j
+  inoremap <M-k> <Esc><c-w>k
+  inoremap <M-l> <Esc><c-w>l
+  " Visual mode:
+  vnoremap <M-h> <Esc><c-w>h
+  vnoremap <M-j> <Esc><c-w>j
+  vnoremap <M-k> <Esc><c-w>k
+  vnoremap <M-l> <Esc><c-w>l
+  " Normal mode:
+  nnoremap <M-h> <c-w>h
+  nnoremap <M-j> <c-w>j
+  nnoremap <M-k> <c-w>k
+  nnoremap <M-l> <c-w>l
+endif
+
