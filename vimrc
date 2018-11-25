@@ -4,6 +4,9 @@
 set nocompatible
 nnoremap  - :
 nnoremap j gj
+
+
+
 nnoremap k gk
 syntax on
 nnoremap / /\V
