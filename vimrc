@@ -23,6 +23,7 @@ noremap <Right> <Nop>
 " " yanked stack (also, in visual mode)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <silent> dd "_dd
+
 vnoremap <silent> dd "_dd
 
 """"""""""""""""""""""
