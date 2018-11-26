@@ -309,7 +309,7 @@ let g:pymode_lint_on_write = 1
 """""""""""""""
 "  Ag and ack "
 """""""""""""""
-let g:ackprg = 'ag --vimgrep --smart-case'
+let g:ackprg = 'rg --vimgrep --smart-case'
 
 """""""""""""""""""
 "  Seoul256 color "
@@ -378,13 +378,16 @@ nnoremap <silent> <Leader>lb :BLines<CR>
 """""""""""""""
 "  ALE syntax "
 """""""""""""""
+
 let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '--'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#ale#enabled = 1
 let g:ale_fixers = ['prettier', 'eslint']
 let g:ale_completion_enabled = 1
-
+let g:ale_set_quickfix = 1
+let g:ale_python_auto_pipenv = 1
+let g:jedi#completions_enabled=1
 """""""""""""""""""
 "  Md is markdown "
 """""""""""""""""""
