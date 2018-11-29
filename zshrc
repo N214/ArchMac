@@ -2,7 +2,9 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Config termite
-export TERM=linux
+#export TERM=linux
+alias tmux="TERM=screen-256color-bce tmux"
+
 
 #function zle-line-init() {
 #  if (( ${+terminfo[smkx]})); then
@@ -128,6 +130,7 @@ export XDG_CURRENT_DESKTO=KDE
 alias orphans="pacman -Qdt" # List orphan programs
 alias pu="sudo pacman -Syu"
 alias p="sudo pacman"
+alias tmux="tmux -2"
 alias SS="sudo systemctl"
 alias v="vim --servername VIM"
 alias sv="sudo vim"

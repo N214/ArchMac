@@ -115,6 +115,9 @@ bindsym $mod+9 workspace $workspace9
 bindsym $mod+0 workspace $workspace10
 bindsym $mod+Tab workspace back_and_forth
 
+#Fonction button
+bindsym $mod+F1 termite -e nmtui
+
 #bindsym $mod+u move scratchpad
 bindsym $mod+Shift+u scratchpad show
 #bindsym $mod+u			[instance="dropdown"] scratchpad show; [instance="dropdown"] move position center

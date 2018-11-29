@@ -12,7 +12,7 @@ setlocal foldmethod=indent
 
 """"""""""""""""
 " Disable keys "
-""""""""""""""""
+"""""""""""""""
 noremap <Up> <Nop>
 noremap <Down> <Nop>
 noremap <Left> <Nop>
@@ -104,13 +104,17 @@ set mouse=a
 "  set ttymouse=xterm2
 "endif
 
-let g:tmux_navigator_no_mappings = 1
 
-nnoremap <silent> {Left-Mapping} :TmuxNavigateLeft<cr>
-nnoremap <silent> {Down-Mapping} :TmuxNavigateDown<cr>
-nnoremap <silent> {Up-Mapping} :TmuxNavigateUp<cr>
-nnoremap <silent> {Right-Mapping} :TmuxNavigateRight<cr>
-nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
+"""""""""""""""""""""""
+"  vim-tmux-navigator "
+"""""""""""""""""""""""
+"let g:tmux_navigator_no_mappings = 1
+"nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
+"nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
+"nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+"nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
+"nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
+
 """"""""""""""""""""""""
 "  keyboard shortcuts  "
 """"""""""""""""""""""""
@@ -121,12 +125,14 @@ let mapleader = ','
 noremap <silent> <leader>R :RMarkdown pdf<CR> 
 noremap ;; :%s:::g<Left><Left><Left>
 noremap ;' :%s:::cg<Left><Left><Left><Left>
-noremap <C-h> <C-W>h
-noremap <C-j> <C-W>j
-noremap <C-k> <C-W>k
-noremap <C-l> <C-W>l
+"noremap <C-h> <C-W>h
+"noremap <C-j> <C-W>j
+"noremap <C-k> <C-W>k
+"noremap <C-l> <C-W>l
 noremap <leader>l :Align
 nnoremap <leader>a :Ack<space>
+nnoremap <leader>s :CtrlSF<space>
+nnoremap <leader>r :Rg<space>
 nnoremap <leader>d :NERDTreeToggle<CR>
 nnoremap <leader>f :NERDTreeFind<CR>
 nnoremap <leader>] :TagbarToggle<CR>
@@ -151,6 +157,19 @@ map <Tab> :bn<CR>
 nnoremap <leader>x :bd<CR> 
 ""map <Tab> <C-W>W:cd %:p:h<CR>:<CR>
 
+"""""""""""""""""
+" YouCompleteMe "
+"""""""""""""""""
+
+let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
+let g:ycm_complete_in_comments = 1 " Completion in comments
+let g:ycm_complete_in_strings = 1 " Completion in string
+let g:ycm_python_binary_path = 'python'
+let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
+
+" Goto definition with F3
+ map <F3> :YcmCompleter GoTo<CR>
 """""""""""""""""""""""""
 "  Rename current file  "
 """""""""""""""""""""""""
@@ -292,19 +311,48 @@ Plug 'junegunn/vim-easy-align'
 Plug 'wikitopian/hardmode'
 Plug 'francoiscabrol/ranger.vim'
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+Plug 'dyng/ctrlsf.vim'
+Plug 'tpope/vim-eunuch'
+Plug 'Shougo/neocomplete' "file completion
+Plug 'easymotion/vim-easymotion' "movement
+
+"deoplete
+if  has ( ' nvim ' )
+  Plug ' Shougo / deoplete.nvim ' , { ' do ' : ' : UpdateRemotePlugins ' }
+ else 
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/vim-hug-neovim-rpc'
+  Plug 'roxma/nvim-yarp'
+ endif 
+let g:deoplete#enableable_at_startup =  1
+
 call plug#end()
+""""""""""""""""
+"  Neocomplete "
+""""""""""""""""
+let g:neocomplete#enable_at_startup = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+"" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
 
 """""""""""""""""""""""""
 "  Python mode settings "
 """""""""""""""""""""""""
-let g:pymode = 1
-let g:pymode_options = 1
-let g:pymode_indent = 1
-let g:pymode_python = 'python3.6'
-let g:pymode_virtualenv = 1
-let g:pymode_run = 1
-let g:pymode_run_bind = '<leader>r'
-let g:pymode_lint_on_write = 1
+"let g:pymode = 1
+"let g:pymode_options = 1
+"let g:pymode_indent = 1
+"let g:pymode_python = 'python3.7'
+"let g:pymode_virtualenv = 1
+"let g:pymode_run = 1
+"let g:pymode_run_bind = '<leader>r'
+"let g:pymode_lint_on_write = 1
 
 """""""""""""""
 "  Ag and ack "
@@ -341,10 +389,10 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 """"""""""""""""""""""
 "  Jedi-vim settings "
 """"""""""""""""""""""
-let g:jedi#use_tabs_not_buffers = 1
-let g:jedi#use_splits_not_buffers = "left"
-let g:jedi#popup_select_first = 0
-let g:jedi#completions_command = "<C-l>"
+"let g:jedi#use_tabs_not_buffers = 1
+"let g:jedi#use_splits_not_buffers = "left"
+"let g:jedi#popup_select_first = 0
+"let g:jedi#completions_command = "<C-l>"
 
 """""""""""""""""
 "  FZF settings "
