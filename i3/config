@@ -17,7 +17,7 @@ gaps outer $default_gaps_outer
 workspace $workspace1 gaps inner 3
 workspace $workspace1 gaps outer 3
 
-#Set term 
+Set $term termite
 #exec --no-startup-id exec termite #i3-sensible-terminal
 exec --no-startup-id termite -e ~/.config/i3/scripts/tmuxinit
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -120,7 +120,7 @@ bindsym $mod+F1 termite -e nmtui
 
 #bindsym $mod+u move scratchpad
 bindsym $mod+Shift+u scratchpad show
-#bindsym $mod+u			[instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
+bindsym $mod+q [instance="dropdown"] scratchpad show, [instance="dropdown"] move position center
 bindsym $mod+u move scratchpad
 
 # move focused container to workspace
@@ -270,7 +270,7 @@ bindsym $mod+Shift+s exec gnome-screenshot --interactive
 # First I have a tmux window used for background scripts.
 # I'll later bind this to mod+u.
 for_window [instance="dropdown"] floating enable
-for_window [instance="dropdown"] resize set 625 400
+for_window [instance="dropdown"] resize set 625 625
 for_window [instance="dropdown"] move scratchpad
 for_window [instance="dropdown"] border pixel 3
 

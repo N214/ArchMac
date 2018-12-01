@@ -10,6 +10,7 @@ nnoremap / /\V
 vnoremap / /\V
 setlocal foldmethod=indent
 
+
 """"""""""""""""
 " Disable keys "
 """""""""""""""
@@ -87,6 +88,7 @@ let g:session_autosave = 'no'
 "" Past command
 nnoremap P o<ESC>p
 nnoremap <leader>p O<ESC>p
+nnoremap <CR> :nohlsearch<CR>
 
 """""""""""""""""""""""""""""""
 "  Vim-latex-preview setting  "
@@ -313,7 +315,7 @@ Plug 'francoiscabrol/ranger.vim'
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 Plug 'dyng/ctrlsf.vim'
 Plug 'tpope/vim-eunuch'
-Plug 'Shougo/neocomplete' "file completion
+"Plug 'Shougo/neocomplete' "file completion
 Plug 'easymotion/vim-easymotion' "movement
 
 "deoplete
@@ -330,18 +332,18 @@ call plug#end()
 """"""""""""""""
 "  Neocomplete "
 """"""""""""""""
-let g:neocomplete#enable_at_startup = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-"" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
-
+"let g:neocomplete#enable_at_startup = 1
+"" Set minimum syntax keyword length.
+"let g:neocomplete#sources#syntax#min_keyword_length = 3
+""" Use smartcase.
+"let g:neocomplete#enable_smart_case = 1
+"" Define dictionary.
+"let g:neocomplete#sources#dictionary#dictionaries = {
+"    \ 'default' : '',
+"    \ 'vimshell' : $HOME.'/.vimshell_hist',
+"    \ 'scheme' : $HOME.'/.gosh_completions'
+"        \ }
+"
 """""""""""""""""""""""""
 "  Python mode settings "
 """""""""""""""""""""""""
@@ -397,6 +399,10 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 """""""""""""""""
 "  FZF settings "
 """""""""""""""""
+"let g:fzf_layout = { 'window': 'enew' }
+"let g:fzf_layout = { 'window': '-tabnew' }
+"let g:fzf_layout = { 'window': '10split enew' }
+
 let g:fzf_files_options =
   \ '--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'"'
 
@@ -406,15 +412,22 @@ command! -bang -nargs=* -complete=buffer Buffers
 command! -bang -nargs=* Rg
   \ call fzf#vim#ag(<q-args>, fzf#vim#with_preview('right'), <bang>0)
 
-command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, fzf#vim#with_preview('right'),<bang>0)
+command! -bang -nargs=* Find call fzf#vim#grep('rg --line-number --no-heading --ignore-case --no-ignore --hidden --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, fzf#vim#with_preview('right'),<bang>0)
+
+command! -bang -nargs=* Finddd call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, fzf#vim#with_preview('right'),<bang>0)
+
+command! -bang -nargs=? -complete=dir HFiles
+  \ call fzf#vim#files(<q-args>, {'source': 'fd -H -d 5 --no-ignore-vcs'}, <bang>0)
 
 fun! s:fzf_root()
-	let path = finddir(".git", expand("%:p:h").";")
+jlet path = finddir(".git", expand("%:p:h").";")
 	return fnamemodify(substitute(path, ".git", "", ""), ":p:h")
 endfun
 
 nnoremap <silent> <Leader>ff :exe 'Files ' . <SID>fzf_root()<CR>
+nnoremap <silent> <Leader>F :HFiles<CR>
 nnoremap <silent> <Leader>fc :Colors<CR>
+nnoremap <silent> <Leader>fr :Find<CR>
 nnoremap <silent> <Leader>fff :Files ~<CR>
 nnoremap <silent> <Leader>fh :History<CR>
 nnoremap <silent> <Leader>bb :Buffers<CR>
@@ -423,6 +436,20 @@ nnoremap <silent> <Leader>h :Helptags<CR>
 nnoremap <silent> <Leader>ll :Lines<CR>
 nnoremap <silent> <Leader>lb :BLines<CR>
 
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-rg)
+
+function! s:fzf_statusline()
+  " Override statusline as you like
+  highlight fzf1 ctermfg=161 ctermbg=251
+  highlight fzf2 ctermfg=23 ctermbg=251
+  highlight fzf3 ctermfg=237 ctermbg=251
+  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+endfunction
+
+autocmd! User FzfStatusLine call <SID>fzf_statusline()
+imap <c-x><c-l> <plug>(fzf-complete-line)
 """""""""""""""
 "  ALE syntax "
 """""""""""""""

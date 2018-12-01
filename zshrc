@@ -28,9 +28,9 @@ alias tmux="TERM=screen-256color-bce tmux"
 ZSH_THEME="robbyrussell"
 
 # FZF
-FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
-FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='fd -d 5 --no-ignore-vcs  -H'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
 # cause zsh load theme from this variable instead of
