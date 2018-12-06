@@ -66,7 +66,6 @@ set listchars=tab:▸\ ,trail:▫
 set hidden
 set noerrorbells 
 set visualbell
-set number                                                   " show line numbers
 set ruler                                                    " show where you are
 set scrolloff=3                                              " show context above/below cursorline
 set shiftwidth=2                                             " normal mode indentation commands use 2 spaces
@@ -79,10 +78,11 @@ set wildmenu                                                 " show a navigable 
 set wildmode=longest,list,full
 set number relativenumber
 set nospell
-set splitbelow                                              " New split panel bottom
+set splitbelow splitright                                              " New split panel bottom
 " Turn folding off for real, hopefully
 set foldmethod=manual
 set nofoldenable
+set wildmode=longest,list,full
 let g:session_autosave = 'no'
 
 "" Past command
@@ -157,6 +157,9 @@ nnoremap <leader>S :r! sed -n 1,8p<space>
 map <leader><Tab> :bp<CR>
 map <Tab> :bn<CR>
 nnoremap <leader>x :bd<CR> 
+xnoremap J :m '>+1<CR>gv=gv
+xnoremap K :m '<-2<CR>gv=gv
+
 ""map <Tab> <C-W>W:cd %:p:h<CR>:<CR>
 
 """""""""""""""""
