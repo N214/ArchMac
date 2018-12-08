@@ -235,6 +235,15 @@ alias market='vim ~/Notes/Cours/Market'
 alias strategy='vim ~/Notes/Cours/Strategy'
 alias mantorrent='vim /home/n214/.config/torrench/torrent'
 alias vi3='vim ~/.config/i3/config'
+#alias maj = "git_update"
+
+git_update() {
+      git add -A
+      git commit -m 'Update'
+      git push
+    }
+
+
 . ~/z/z.sh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
