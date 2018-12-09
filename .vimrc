@@ -427,11 +427,10 @@ jlet path = finddir(".git", expand("%:p:h").";")
 	return fnamemodify(substitute(path, ".git", "", ""), ":p:h")
 endfun
 
-nnoremap <silent> <Leader>ff :exe 'Files ' . <SID>fzf_root()<CR>
 nnoremap <silent> <Leader>F :HFiles<CR>
 nnoremap <silent> <Leader>fc :Colors<CR>
 nnoremap <silent> <Leader>fr :Find<CR>
-nnoremap <silent> <Leader>fff :Files ~<CR>
+nnoremap <silent> <Leader>ff :Files <CR>
 nnoremap <silent> <Leader>fh :History<CR>
 nnoremap <silent> <Leader>bb :Buffers<CR>
 nnoremap <silent> <Leader>; :Commands<CR>
