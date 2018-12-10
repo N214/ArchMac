@@ -156,6 +156,7 @@ nnoremap <Leader>dd :call delete(expand('%'))\| bdelete! \| :exe ":echo 'file de
 nnoremap <leader>S :r! sed -n 1,8p<space>
 map <leader><Tab> :bp<CR>
 map <Tab> :bn<CR>
+nnoremap <leader>q :Bdelete<CR>
 nnoremap <leader>x :bd<CR> 
 xnoremap J :m '>+1<CR>gv=gv
 xnoremap K :m '<-2<CR>gv=gv
@@ -320,8 +321,11 @@ Plug 'dyng/ctrlsf.vim'
 Plug 'tpope/vim-eunuch'
 "Plug 'Shougo/neocomplete' "file completion
 Plug 'easymotion/vim-easymotion' "movement
+Plug 'moll/vim-bbye'
 
-"deoplete
+""""""""""""""""
+"   deoplete   "
+""""""""""""""""
 if  has ( ' nvim ' )
   Plug ' Shougo / deoplete.nvim ' , { ' do ' : ' : UpdateRemotePlugins ' }
  else 
