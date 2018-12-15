@@ -322,7 +322,7 @@ Plug 'tpope/vim-eunuch'
 "Plug 'Shougo/neocomplete' "file completion
 Plug 'easymotion/vim-easymotion' "movement
 Plug 'moll/vim-bbye'
-Plug 'thinca/vim-quickrun'
+Plug 'thinca/vim-quickrun'  "run buffer's code
 
 """"""""""""""""
 "   deoplete   "
