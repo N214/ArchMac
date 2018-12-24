@@ -156,7 +156,7 @@ noremap <silent> <leader>E :setlocal spell spelllang=en_us<CR>
 inoremap <leader><leader> <Esc>/<++><Enter>"_c4l
 
 inoremap < <><space><++><ESC>5hi
-inoremap ( ()<space><++><ESC>5hi
+"inoremap ( ()<space><++><ESC>5hi
 inoremap [ []<space><++><ESC>5hi
 inoremap { {}<space><++><ESC>5hi
 inoremap º \
@@ -332,6 +332,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'easymotion/vim-easymotion' "movement
 Plug 'moll/vim-bbye'  "buffer close
 Plug 'thinca/vim-quickrun'  "run buffer's code
+Plug 'Townk/vim-autoclose'  "Close bracket
 
 """"""""""""""""
 "   deoplete   "
