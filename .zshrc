@@ -32,6 +32,7 @@ ZSH_THEME="bureau"
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='fd -d 5 --no-ignore-vcs  -H'
+export FZF_COMPLETION_TRIGGER='**'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -157,6 +158,7 @@ alias market='vim ~/Notes/Cours/Market'
 alias strategy='vim ~/Notes/Cours/Strategy'
 alias mantorrent='vim /home/n214/.config/torrench/torrent'
 alias vi3='vim ~/.config/i3/config'
+alias vv='vim ~/ArchMac/.vimrc'
 alias serve='python -m http.server' # optional arg: port (defaults to 8000)
 alias e=exit
 #alias maj = "git_update"

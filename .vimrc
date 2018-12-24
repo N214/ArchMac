@@ -8,7 +8,6 @@ nnoremap k gk
 syntax on
 nnoremap / /\V
 vnoremap / /\V
-setlocal foldmethod=indent
 
 
 """"""""""""""""
@@ -24,7 +23,6 @@ noremap <Right> <Nop>
 " " yanked stack (also, in visual mode)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <silent> dd "_dd
-
 vnoremap <silent> dd "_dd
 
 """"""""""""""""""""""
@@ -90,8 +88,19 @@ nnoremap P o<ESC>p
 nnoremap <leader>p O<ESC>p
 nnoremap <CR> :nohlsearch<CR>
 
+
+"""""""""""""
+" ultisnips "
+"""""""""""""
+let g:UltiSnipsExpandTrigger="<TAB>"
+let g:UltiSnipsJumpForwardTrigger="<c-f>"
+let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsUsePythonVersion = 3
+let g:UltiSnipsSnippetDirectories = ['/home/n214/.vim/bundle/ultiSnips', 'ultiSnips']
+
 """""""""""""""""""""""""""""""
-"  Vim-latex-preview setting  "
+"  vim-latex-preview setting  "
 """""""""""""""""""""""""""""""
 autocmd Filetype tex setl updatetime=5
 let g:livepreview_previewer = 'mupdf'
@@ -110,12 +119,12 @@ set mouse=a
 """""""""""""""""""""""
 "  vim-tmux-navigator "
 """""""""""""""""""""""
-"let g:tmux_navigator_no_mappings = 1
-"nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
-"nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
-"nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
-"nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
-"nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
+let g:tmux_navigator_no_mappings = 1
+nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
+nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
 
 """"""""""""""""""""""""
 "  keyboard shortcuts  "
@@ -144,23 +153,23 @@ noremap <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo '
 noremap <silent> <leader>v :e ~/.vimrc<CR>
 noremap <silent> <leader>vb :e ~/.vimrc.bundles<CR>
 noremap <silent> <leader>E :setlocal spell spelllang=en_us<CR>
-inoremap <leader><leader> <Esc>/<<Enter>"_c4l
+inoremap <leader><leader> <Esc>/<++><Enter>"_c4l
+
 inoremap < <><space><++><ESC>5hi
 inoremap ( ()<space><++><ESC>5hi
 inoremap [ []<space><++><ESC>5hi
 inoremap { {}<space><++><ESC>5hi
 inoremap º \
 nnoremap <C-t> :tabnew<cr>
-"nnoremap <C-w> :bd<cr>
 nnoremap <Leader>dd :call delete(expand('%'))\| bdelete! \| :exe ":echo 'file deleted'"<CR>
 nnoremap <leader>S :r! sed -n 1,8p<space>
 map <leader><Tab> :bp<CR>
 map <Tab> :bn<CR>
+nnoremap <leader><CR> o<ESC>
 nnoremap <leader>q :Bdelete<CR>
 nnoremap <leader>x :bd<CR> 
 xnoremap J :m '>+1<CR>gv=gv
 xnoremap K :m '<-2<CR>gv=gv
-
 ""map <Tab> <C-W>W:cd %:p:h<CR>:<CR>
 
 """""""""""""""""
@@ -321,7 +330,7 @@ Plug 'dyng/ctrlsf.vim'
 Plug 'tpope/vim-eunuch'
 "Plug 'Shougo/neocomplete' "file completion
 Plug 'easymotion/vim-easymotion' "movement
-Plug 'moll/vim-bbye'
+Plug 'moll/vim-bbye'  "buffer close
 Plug 'thinca/vim-quickrun'  "run buffer's code
 
 """"""""""""""""
@@ -337,21 +346,6 @@ if  has ( ' nvim ' )
 let g:deoplete#enableable_at_startup =  1
 
 call plug#end()
-""""""""""""""""
-"  Neocomplete "
-""""""""""""""""
-"let g:neocomplete#enable_at_startup = 1
-"" Set minimum syntax keyword length.
-"let g:neocomplete#sources#syntax#min_keyword_length = 3
-""" Use smartcase.
-"let g:neocomplete#enable_smart_case = 1
-"" Define dictionary.
-"let g:neocomplete#sources#dictionary#dictionaries = {
-"    \ 'default' : '',
-"    \ 'vimshell' : $HOME.'/.vimshell_hist',
-"    \ 'scheme' : $HOME.'/.gosh_completions'
-"        \ }
-"
 """""""""""""""""""""""""
 "  Python mode settings "
 """""""""""""""""""""""""
@@ -407,9 +401,19 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 """""""""""""""""
 "  FZF settings "
 """""""""""""""""
+"Neovim
 "let g:fzf_layout = { 'window': 'enew' }
 "let g:fzf_layout = { 'window': '-tabnew' }
 "let g:fzf_layout = { 'window': '10split enew' }
+
+" This is the default extra key bindings
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+" [Buffers] 如果可能跳到已存在窗口
+let g:fzf_buffers_jump = 1
 
 let g:fzf_files_options =
   \ '--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'"'
@@ -417,10 +421,17 @@ let g:fzf_files_options =
 command! -bang -nargs=* -complete=buffer Buffers
   \ call fzf#vim#buffers(<q-args>, {'options': '--color bw'}, <bang>0)
 
-command! -bang -nargs=* Rg
-  \ call fzf#vim#ag(<q-args>, fzf#vim#with_preview('right'), <bang>0)
 
-command! -bang -nargs=* Find call fzf#vim#grep('rg --line-number --no-heading --ignore-case --no-ignore --hidden --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, fzf#vim#with_preview('right'),<bang>0)
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '
+  \ . <q-args>, 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+
+command! -bang -nargs=* Find call fzf#vim#grep( 'rg  --line-number --no-heading --ignore-case --no-ignore   --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, fzf#vim#with_preview('right'),<bang>0)
 
 command! -bang -nargs=* Finddd call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, fzf#vim#with_preview('right'),<bang>0)
 
@@ -432,9 +443,10 @@ jlet path = finddir(".git", expand("%:p:h").";")
 	return fnamemodify(substitute(path, ".git", "", ""), ":p:h")
 endfun
 
-nnoremap <silent> <Leader>F :HFiles<CR>
+nnoremap <silent> <Leader>c :HFiles ~/Dropbox/MA1/Q1<CR>
+nnoremap <silent> <Leader>fr :Find <CR>
+nnoremap <silent> <Leader>fd :Find<CR>
 nnoremap <silent> <Leader>fc :Colors<CR>
-nnoremap <silent> <Leader>fr :Find<CR>
 nnoremap <silent> <Leader>ff :Files <CR>
 nnoremap <silent> <Leader>fh :History<CR>
 nnoremap <silent> <Leader>bb :Buffers<CR>
@@ -457,6 +469,14 @@ endfunction
 
 autocmd! User FzfStatusLine call <SID>fzf_statusline()
 imap <c-x><c-l> <plug>(fzf-complete-line)
+
+
+" See all vim mapping
+nmap <leader>m <plug>(fzf-maps-n)
+xmap <leader>m <plug>(fzf-maps-x)
+omap <leader>m <plug>(fzf-maps-o)
+
+
 """""""""""""""
 "  ALE syntax "
 """""""""""""""
@@ -475,7 +495,11 @@ let g:jedi#completions_enabled=1
 """""""""""""""""""
 autocmd BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufRead,BufNewFile *.md set spell
-
+autocmd BufRead,BufNewFile *.Rmd set filetype=rmarkdown
+autocmd BufRead,BufNewFile *Rmd set spelllang=en_us
+autocmd BufRead,BufNewFile *.rmd set filetype=rmarkdown
+autocmd BufRead,BufNewFile *rmd set spelllang=en_us
+autocmd BufNewFile,BufRead *.rmd,*.rmarkdown,*.Rmd UltiSnipsAddFiletypes rmd
 
 """""""""""""
 "  Markdown "
