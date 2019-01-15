@@ -11,7 +11,7 @@ alias tmux="TERM=screen-256color-bce tmux"
 export PATH="/home/n214/go/bin:$PATH"
 
 # Default system editor
-export EDITOR=nvim
+export EDITOR=vim
 
 #function zle-line-init() {
 #  if (( ${+terminfo[smkx]})); then
