@@ -327,12 +327,14 @@ Plug 'wikitopian/hardmode'
 Plug 'francoiscabrol/ranger.vim'
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 Plug 'dyng/ctrlsf.vim'
-Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-eunuch' "Delete and rename files
+Plug 'Shougo/denite.nvim' "Fuzzy file finder
 "Plug 'Shougo/neocomplete' "file completion
 Plug 'easymotion/vim-easymotion' "movement
 Plug 'moll/vim-bbye'  "buffer close
 Plug 'thinca/vim-quickrun'  "run buffer's code
 Plug 'Townk/vim-autoclose'  "Close bracket
+Plug 'zchee/deoplete-jedi'
 
 """"""""""""""""
 "   deoplete   "
@@ -394,10 +396,10 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 """"""""""""""""""""""
 "  Jedi-vim settings "
 """"""""""""""""""""""
-"let g:jedi#use_tabs_not_buffers = 1
-"let g:jedi#use_splits_not_buffers = "left"
-"let g:jedi#popup_select_first = 0
-"let g:jedi#completions_command = "<C-l>"
+let g:jedi#completions_enabled = 0
+let g:jedi#use_splits_not_buffers = "right"
+let g:jedi#use_tabs_not_buffers = 1
+let g:jedi#popup_select_first = 0
 
 """""""""""""""""
 "  FZF settings "

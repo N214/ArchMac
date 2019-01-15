@@ -7,7 +7,11 @@ promptinit
 # Config termite
 #export TERM=linux
 alias tmux="TERM=screen-256color-bce tmux"
+# Export go
+export PATH="/home/n214/go/bin:$PATH"
 
+# Default system editor
+export EDITOR=nvim
 
 #function zle-line-init() {
 #  if (( ${+terminfo[smkx]})); then
@@ -196,4 +200,42 @@ function stopwatch(){
     echo -ne "$(date -u --date @$((`date +%s` - $date1)) +%H:%M:%S)\r"; 
     sleep 0.1
    done
+}
+
+# locate a file and open with vim
+ff() {
+  local files
+
+  files=(${(f)"$(locate -Ai -0 $@ | grep -z -vE '~$' | fzf --read0 -0 -1 -m)"})
+
+  if [[ -n $files ]]
+  then
+     vim -- $files
+     print -l $files[1]
+  fi
+}
+
+# Change directory
+fd() {
+  local dir
+  dir=$(find ${1:-.} -path '*/\.*' -prune \
+                  -o -type d -print 2> /dev/null | fzf +m) &&
+  cd "$dir"
+}
+
+# Change directory from anywhere
+ccf() {
+  local file
+
+  file="$(locate -Ai -0 $@ | grep -z -vE '~$' | fzf --read0 -0 -1)"
+
+  if [[ -n $file ]]
+  then
+     if [[ -d $file ]]
+     then
+        cd -- $file
+     else
+        cd -- ${file:h}
+     fi
+  fi
 }

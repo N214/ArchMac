@@ -8,9 +8,10 @@ font pango:System San Francisco Display Regular 7
 #gaps inner 15
 #gaps outer 15
 for_window [class="^.*"] border pixel 0
-new_window 1pixel
+new_window pixel 1
+new_float normal
 set $default_gaps_inner 3
-set $default_gaps_outer 6
+set $default_gaps_outer 3
 gaps inner $default_gaps_inner
 gaps outer $default_gaps_outer
 
@@ -26,9 +27,6 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec termite #i3-sensible-terminal
 
-# test
-bindsym $mod+Control+Left move workspace to output left
-bindsym $mod+Control+Right move workspace to output right
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -53,10 +51,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
-bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move up
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move left
+bindsym $mod+Shift+h move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -68,10 +66,12 @@ bindsym $mod+Shift+Right move right
 #bindsym $mod+Shift+h split h
 
 # split in vertical orientation
-bindsym $mod+v split v
+bindsym $mod+v split v;exec notify-send 'tile vertically'
+bindsym $mod+z split h;exec notify-send 'tile honrizontally'
+#bindsym $mod+q split toggle
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
+bindsym $mod+shift+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
@@ -116,7 +116,9 @@ bindsym $mod+0 workspace $workspace10
 bindsym $mod+Tab workspace back_and_forth
 
 #Fonction button
-bindsym $mod+F1 termite -e nmtui
+bindsym $mod+F1 exec termite -e nmtui
+bindsym $mod+f exec termite -e ranger
+bindsym $mod+n exec termite -e nvim
 
 #bindsym $mod+u move scratchpad
 bindsym $mod+Shift+u scratchpad show
@@ -136,12 +138,12 @@ bindsym $mod+Shift+9 move container to workspace $workspace9
 bindsym $mod+Shift+0 move container to workspace $workspace10
 
 
-for_window [class="Terminal"]move to workspace $workspace1
-for_window [class="Chromium"]move to workspace $workspace2
-for_window [class="mupdf"]move to workspace $workspace3
-for_window [class="okular"]move to workspace $workspace3
-for_window [class="Mailspring"] move to workspace $workspace3; workspace $workspace3
-for_window [class="vlc"]move to workspace $workspace4
+for_window [class="Terminal"] move to workspace $workspace1
+for_window [class="Chromium"] move to workspace $workspace2
+for_window [class="mupdf"] move to workspace $workspace3
+for_window [class="okular"] move to workspace $workspace3
+for_window [class="Mailspring"]  move to workspace $workspace3; workspace $workspace3
+for_window [class="vlc"] move to workspace $workspace4
 for_window [class="Spotify"] move to workspace $workspace5; workspace $workspace5
 
 
@@ -155,6 +157,12 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
+
+bindsym $mod+Ctrl+l resize shrink width 1 px or 1 ppt
+bindsym $mod+Ctrl+k resize grow height 1 px or 1 ppt
+bindsym $mod+Ctrl+j resize shrink height 1 px or 1 ppt
+bindsym $mod+Ctrl+h resize grow width 1 px or 1 ppt
+
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
 
@@ -197,9 +205,13 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 5% # decrease screen brightne
 bindsym XF86KbdBrightnessUp exec kbdlight up 10%
 bindsym XF86KbdBrightnessDown exec kbdlight down 10%
 # Volume controls
-bindsym XF86AudioLowerVolume exec amixer sset Master 10%-
-bindsym XF86AudioRaiseVolume exec amixer sset Master 10%+
-bindsym XF86AudioMute exec amixer sset Master mute
+
+#bindsym XF86AudioLowerVolume exec amixer sset Master 10%-
+#bindsym XF86AudioRaiseVolume exec amixer sset Master 10%+
+#bindsym XF86AudioMute exec amixer sset Master mute
+bindsym XF86AudioRaiseVolume exec "amixer -q sset Master,0 1+ unmute"
+bindsym XF86AudioLowerVolume exec "amixer -q sset Master,0 1- unmute"
+bindsym XF86AudioMute exec "amixer -q sset Master,0 toggle"
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
@@ -214,7 +226,7 @@ mode $keyboard_mode{
      bindsym Return mode "default"
      bindsym Escape mode "default"
 }
-bindsym $mod+Shift+i mode $keyboard_mode
+bindsym $mod+Shift+a mode $keyboard_mode
 
 
 # Keyboard
@@ -226,7 +238,7 @@ mode $mode_fcitx {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+Shift+f mode $mode_fcitx
+bindsym $mod+Shift+I mode $mode_fcitx
 
 # window colors
 set $bg-color 	         #2f343f
@@ -263,9 +275,9 @@ client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color      
 bindsym $mod+o exec rofi -dpi 180 -show run
 bindsym $mod+c exec chromium
 bindsym $mod+p exec spotify --force-device-scale-factor=2
-bindsym $mod+t exec pcmanfm 
+bindsym $mod+t exec thunar 
 bindsym $mod+m exec mailspring --force-device-scale-factor=2
-bindsym $mod+n exec netease-cloud-music --force-device-scale-factor=2 
+bindsym $mod+Shift+p exec netease-cloud-music --force-device-scale-factor=2 
 bindsym $mod+Shift+s exec gnome-screenshot --interactive
 
 
@@ -281,13 +293,14 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 # Runs the tmuxinit script, which searches for an earlier tmux instance,
 # otherwise starts a new one (to prevent multiple dropdown sessions).
 exec --no-startup-id /usr/lib/polkit-kde-authentication-agent-1
-exec --no-startup-id pnmixer
+exec --no-startup-id volumeicon
 exec --no-startup-id compton -b
 exec --no-startup-id pamac-tray  # pamac package manager tray
 exec --no-startup-id nm-applet  
 exec --no-startup-id mailspring -b --force-device-scale-factor=2
-exec --no-startup-id xfce4-clipman  # xfce4 clipboard manager
+exec --no-startup-id clipit  # xfce4 clipboard manager
 exec --no-startup-id "fcitx"
-exec --no-startup-id dropbox
+exec --no-startup-id dbus-launch dropbox start
 exec --no-startup-id unclutter
 exec --no-startup-id mpd
+exec --no-startup-id xautolock -time 10 -locker lock
