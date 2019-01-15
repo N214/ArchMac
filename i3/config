@@ -18,14 +18,14 @@ gaps outer $default_gaps_outer
 workspace $workspace1 gaps inner 3
 workspace $workspace1 gaps outer 3
 
-Set $term termite
-#exec --no-startup-id exec termite #i3-sensible-terminal
-exec --no-startup-id termite -e ~/.config/i3/scripts/tmuxinit
+Set $term st
+#exec --no-startup-id exec st #i3-sensible-terminal
+exec --no-startup-id st -e ~/.config/i3/scripts/tmuxinit
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec termite #i3-sensible-terminal
+bindsym $mod+Return exec st #i3-sensible-terminal
 
 
 # kill focused window
@@ -116,9 +116,9 @@ bindsym $mod+0 workspace $workspace10
 bindsym $mod+Tab workspace back_and_forth
 
 #Fonction button
-bindsym $mod+F1 exec termite -e nmtui
-bindsym $mod+f exec termite -e ranger
-bindsym $mod+n exec termite -e nvim
+bindsym $mod+F1 exec st -e nmtui
+bindsym $mod+f exec st -e ranger
+bindsym $mod+n exec st -e nvim
 
 #bindsym $mod+u move scratchpad
 bindsym $mod+Shift+u scratchpad show
