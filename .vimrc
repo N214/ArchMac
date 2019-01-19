@@ -147,7 +147,7 @@ nnoremap <leader>r :Rg<space>
 nnoremap <leader>d :NERDTreeToggle<CR>
 nnoremap <leader>f :NERDTreeFind<CR>
 nnoremap <leader>] :TagbarToggle<CR>
-nnoremap <leader><space> :call whitespace#strip_trailing()<CR>
+" Unknown function nnoremap <leader><space> :call whitespace#strip_trailing()<CR>
 nnoremap <leader>g :GitGutterToggle<CR>
 noremap <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 noremap <silent> <leader>v :e ~/.vimrc<CR>
@@ -164,10 +164,10 @@ nnoremap <C-t> :tabnew<cr>
 nnoremap <Leader>dd :call delete(expand('%'))\| bdelete! \| :exe ":echo 'file deleted'"<CR>
 nnoremap <leader>S :r! sed -n 1,8p<space>
 map <leader><Tab> :bp<CR>
-map <Tab> :bn<CR>
+map <leader>º :bn<CR>
 nnoremap <leader><CR> o<ESC>
 nnoremap <leader>q :Bdelete<CR>
-nnoremap <leader>x :bd<CR> 
+nnoremap <leader>x :bd<CR>
 xnoremap J :m '>+1<CR>gv=gv
 xnoremap K :m '<-2<CR>gv=gv
 ""map <Tab> <C-W>W:cd %:p:h<CR>:<CR>
