@@ -176,15 +176,15 @@ xnoremap K :m '<-2<CR>gv=gv
 " YouCompleteMe "
 """""""""""""""""
 
-let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
-let g:ycm_complete_in_comments = 1 " Completion in comments
-let g:ycm_complete_in_strings = 1 " Completion in string
-let g:ycm_python_binary_path = 'python'
-let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
-
-" Goto definition with F3
- map <F3> :YcmCompleter GoTo<CR>
+"let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
+"let g:ycm_complete_in_comments = 1 " Completion in comments
+"let g:ycm_complete_in_strings = 1 " Completion in string
+"let g:ycm_python_binary_path = 'python'
+"let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
+"let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
+"
+"" Goto definition with F3
+" map <F3> :YcmCompleter GoTo<CR>
 """""""""""""""""""""""""
 "  Rename current file  "
 """""""""""""""""""""""""
@@ -436,6 +436,7 @@ command! -bang -nargs=* Rg
 
 command! -bang -nargs=* Find call fzf#vim#grep( 'rg  --line-number --no-heading --ignore-case --no-ignore   --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, fzf#vim#with_preview('right'),<bang>0)
 
+command! -bang -nargs=* S call fzf#vim#grep('rg --line-number --no-heading --ignore-case --no-ignore   --color "always" '.shellescape(<q-args>). ' ~/Dropbox/MA1' , 1,fzf#vim#with_preview('right'), <bang>0)
 command! -bang -nargs=* Finddd call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, fzf#vim#with_preview('right'),<bang>0)
 
 command! -bang -nargs=? -complete=dir HFiles
@@ -446,9 +447,9 @@ jlet path = finddir(".git", expand("%:p:h").";")
 	return fnamemodify(substitute(path, ".git", "", ""), ":p:h")
 endfun
 
-nnoremap <silent> <Leader>c :HFiles ~/Dropbox/MA1/Q1<CR>
+nnoremap <silent> <Leader>c :HFiles ~/Dropbox/MA1<CR>
 nnoremap <silent> <Leader>fr :Find <CR>
-nnoremap <silent> <Leader>fd :Find<CR>
+nnoremap <silent> <Leader>fd :S<CR>
 nnoremap <silent> <Leader>fc :Colors<CR>
 nnoremap <silent> <Leader>ff :Files <CR>
 nnoremap <silent> <Leader>fh :History<CR>
@@ -641,6 +642,9 @@ nnoremap <leader><Space> zm
 
 
 if has ('nvim') 
+  let g:vimtex_compiler_progname = 'nvr'
+  let g:python3_host_prog="/opt/miniconda3/bin/python3"
+  let g:python_host_prog="/usr/bin/python2"
   tnoremap <expr> <A-r> '<C-\><C-N>"'.nr2char(getchar()).'pi'
   tnoremap <Esc> <C-\><C-n>
   tnoremap <M-[> <Esc>

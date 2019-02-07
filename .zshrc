@@ -136,12 +136,13 @@ setopt correct
 export XDG_CURRENT_DESKTO=KDE
 alias config='/usr/bin/git --git-dir=$HOME/DotArchMac/ --work-tree=$HOME'
 alias orphans="pacman -Qdt" # List orphan programs
-alias pu="sudo pacman -Syu"
+alias pu="sudo pacman -Syyuu"
 alias p="sudo pacman"
 alias tmux="tmux -2"
 alias SS="sudo systemctl"
 alias v="vim --servername VIM"
 alias sv="sudo vim"
+alias nv="nvim --listen /tmp/nvimserver"
 alias r="ranger"
 alias sr="sudo ranger"
 alias mkd="mkdir -pv"
@@ -158,9 +159,17 @@ alias torrent='torrench'
 alias mantorrent='vim /home/n214/.config/torrench/torrent'
 alias vi3='vim ~/.config/i3/config'
 alias vv='vim ~/ArchMac/.vimrc'
+alias ls="ls -l"
 alias serve='python -m http.server' # optional arg: port (defaults to 8000)
 alias e=exit
+alias py=python
+alias android="./android-file-transfer-linux/build/qt/android-file-transfer"
+alias code= "code --force-device-scale-factor=2"
 #alias maj = "git_update"
+#
+# terminal rickroll!
+alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash'
+
 
 cfg_update() { 
           config commit -a -m "$1"
