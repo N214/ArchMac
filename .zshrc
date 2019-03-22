@@ -1,17 +1,27 @@
 autoload -Uz promptinit
 promptinit
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Config termite
 #export TERM=linux
 alias tmux="TERM=screen-256color-bce tmux"
-# Export go
+# Export 
 export PATH="/home/n214/go/bin:$PATH"
+export ZSH="/home/n214/.oh-my-zsh"
+export EDITOR=vim
+export ARCHFLAGS="-arch x86_64"
+export XDG_CURRENT_DESKTO=KDE
+
+# Pipenv
+
+export PATH="/home/n214/.pyenv/bin:$PATH"
+export PATH="/opt/miniconda3/bin:$PATH"
+export PATH="${PATH}:${HOME}/.local/bin/"
+
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 # Default system editor
-export EDITOR=vim
 
 #function zle-line-init() {
 #  if (( ${+terminfo[smkx]})); then
@@ -26,24 +36,17 @@ export EDITOR=vim
 #}
 #
 
-# Path to your oh-my-zsh installation.
-  export ZSH="/home/n214/.oh-my-zsh"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="bureau"
-# FZF
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='fd -d 5 --no-ignore-vcs  -H'
-export FZF_COMPLETION_TRIGGER='**'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+ZSH_THEME="robbyrussell"
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
 # cause zsh load theme from this variable instead of
 # looking in ~/.oh-my-zsh/themes/
 # An empty array have no effect
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -116,11 +119,10 @@ setopt correct
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
-#   export EDITOR='mvim'
+#   export EDITOR='nvim'
 # fi
 
 # Compilation flags
- export ARCHFLAGS="-arch x86_64"
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
@@ -133,7 +135,6 @@ setopt correct
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-export XDG_CURRENT_DESKTO=KDE
 alias config='/usr/bin/git --git-dir=$HOME/DotArchMac/ --work-tree=$HOME'
 alias orphans="pacman -Qdt" # List orphan programs
 alias pu="sudo pacman -Syyuu"
@@ -159,16 +160,19 @@ alias torrent='torrench'
 alias mantorrent='vim /home/n214/.config/torrench/torrent'
 alias vi3='vim ~/.config/i3/config'
 alias vv='vim ~/ArchMac/.vimrc'
-alias ls="ls -l"
+alias ls="exa -l"
 alias serve='python -m http.server' # optional arg: port (defaults to 8000)
 alias e=exit
 alias py=python
 alias android="./android-file-transfer-linux/build/qt/android-file-transfer"
 alias code= "code --force-device-scale-factor=2"
+alias journal="sudo journalctl -p 3 -xb"
+alias cc='/home/n214/scripts/copy.sh'
 #alias maj = "git_update"
 #
 # terminal rickroll!
 alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash'
+alias vf=vifm
 
 
 cfg_update() { 
@@ -185,16 +189,7 @@ git_update() {
 
 . ~/z/z.sh
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Pipenv
-
-export PATH="/home/n214/.pyenv/bin:$PATH"
-export PATH="/opt/miniconda3/bin:$PATH"
-export PATH="${PATH}:${HOME}/.local/bin/"
-
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
 
 function countdown(){
    date1=$((`date +%s` + $1)); 
@@ -211,7 +206,18 @@ function stopwatch(){
    done
 }
 
-# locate a file and open with vim
+
+######################################
+#               FZF                  #
+######################################
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='fd -d 5 --no-ignore-vcs  -H'
+export FZF_DEFAULT_OPTS="--layout=reverse --height 40%"
+export FZF_COMPLETION_TRIGGER='**'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+## locate a file and open with vim
 ff() {
   local files
 
@@ -224,7 +230,7 @@ ff() {
   fi
 }
 
-# Change directory
+## Change directory
 fd() {
   local dir
   dir=$(find ${1:-.} -path '*/\.*' -prune \
@@ -232,7 +238,7 @@ fd() {
   cd "$dir"
 }
 
-# Change directory from anywhere
+## Change directory from anywhere
 ccf() {
   local file
 
@@ -248,3 +254,10 @@ ccf() {
      fi
   fi
 }
+
+fv() {du -a ~/Dropbox/* | awk '{print $2}' | fzf | xargs -r nvim;}
+fC() {du -a ~/Downloads ~/.config/* | awk '{print $2}' | fzf | xargs -r nvim;}
+C() {cp -v "$1" "$(du -a ~/Dropbox/* | awk '{print $2}' | fzf | sed "s|~|$HOME|")" ;}
+R() {rm -rfv "$(du -a ~/Dropbox/* ~/Downloads | awk '{print $2}' | fzf | sed "s|~|$HOME|")" ;}
+
+# bindkey -v
