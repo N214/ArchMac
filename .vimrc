@@ -81,13 +81,24 @@ set splitbelow splitright                                              " New spl
 set foldmethod=manual
 set nofoldenable
 set wildmode=longest,list,full
-let g:session_autosave = 'no'
+set undofile                                                "Maintain undo history between sessions
+set undodir=~/.vim/undodir
 
+"" Git shortcut
+map <F1> :! git status
+map <F2> :! git diff %
+map <F3> :! git add %
+map <F4> :! git commit -m "Lazy Commit" %
+map <F5> :! git log - oneline - abbrev-commit
 "" Past command
 nnoremap P o<ESC>p
 nnoremap <leader>p O<ESC>p
 nnoremap <CR> :nohlsearch<CR>
 
+" Compile document, be it groff/LaTeX/markdown/etc.
+map <leader>C :silent exec "w! \| !compiler <c-r>%"<CR>
+
+" Open corresponding .pdf/.html or preview
 
 """""""""""""
 " ultisnips "
@@ -105,7 +116,7 @@ let g:UltiSnipsSnippetDirectories = ['/home/n214/.vim/bundle/ultiSnips', 'ultiSn
 autocmd Filetype tex setl updatetime=5
 let g:livepreview_previewer = 'mupdf'
 let g:vimtex_view_method = 'mupdf'
-"let g:livepreview_engine = 'xelatex'
+let g:livepreview_engine = 'xelatex'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "  Enable basic mouse behavior such as resizing buffers  "
@@ -144,8 +155,7 @@ noremap <leader>l :Align
 nnoremap <leader>a :Ack<space>
 nnoremap <leader>s :CtrlSF<space>
 nnoremap <leader>r :Rg<space>
-nnoremap <leader>d :NERDTreeToggle<CR>
-nnoremap <leader>f :NERDTreeFind<CR>
+nnoremap <leader>d :NERDTreeFind<CR>
 nnoremap <leader>] :TagbarToggle<CR>
 " Unknown function nnoremap <leader><space> :call whitespace#strip_trailing()<CR>
 nnoremap <leader>g :GitGutterToggle<CR>
@@ -153,12 +163,12 @@ noremap <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo '
 noremap <silent> <leader>v :e ~/.vimrc<CR>
 noremap <silent> <leader>vb :e ~/.vimrc.bundles<CR>
 noremap <silent> <leader>E :setlocal spell spelllang=en_us<CR>
-inoremap <leader><leader> <Esc>/<++><Enter>"_c4l
+"noremap <leader><leader> <Esc>/<++><Enter>"_c4l
 
-inoremap < <><space><++><ESC>5hi
+"inoremap < <><space><++><ESC>5hi
 "inoremap ( ()<space><++><ESC>5hi
-inoremap [ []<space><++><ESC>5hi
-inoremap { {}<space><++><ESC>5hi
+"inoremap [ []<space><++><ESC>5hi
+"inoremap { {}<space><++><ESC>5hi
 inoremap º \
 nnoremap <C-t> :tabnew<cr>
 nnoremap <Leader>dd :call delete(expand('%'))\| bdelete! \| :exe ":echo 'file deleted'"<CR>
@@ -227,7 +237,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline_theme='onehalfdark'
+let g:airline_theme='base16'
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
@@ -248,7 +258,22 @@ let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.paste = 'Þ'
 let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
+
+
+"""""""""""""""""""""
+" Xolox vim plugins "
+"""""""""""""""""""""
 let g:notes_directories = ['~/Notes']
+let g:session_autosave = 'no'
+" vim-easytags
+" Where to look for tags files
+set tags=./tags;,~/.vimtags
+" Sensible defaults
+let g:easytags_events = ['BufReadPost', 'BufWritePost']
+let g:easytags_async = 1
+let g:easytags_dynamic_files = 2
+let g:easytags_resolve_links = 1
+let g:easytags_suppress_ctags_warning = 1
 
 """"""""""""""""""""""""""""
 "  Use The Silver Searcher "
@@ -335,6 +360,7 @@ Plug 'moll/vim-bbye'  "buffer close
 Plug 'thinca/vim-quickrun'  "run buffer's code
 Plug 'Townk/vim-autoclose'  "Close bracket
 Plug 'zchee/deoplete-jedi'
+Plug 'vim-scripts/mru.vim'   "Loast opened file
 
 """"""""""""""""
 "   deoplete   "

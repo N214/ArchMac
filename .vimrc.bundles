@@ -53,9 +53,10 @@ Plugin 'vim-pandoc/vim-rmarkdown'
 Plugin 'w0rp/ale'
 Plugin 'mileszs/ack.vim'
 "Plugin 'python-mode/python-mode'
-Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-session'
-Plugin 'xolox/vim-notes'
+Plugin 'xolox/vim-misc'                     "Script used by vim-session and vim-notes
+Plugin 'xolox/vim-session'                  "Session manager
+Plugin 'xolox/vim-notes'                    "Note manager
+Plugin 'xolox/vim-easytags'                 "Automated tag generation and syntax highlighting in Vim
 Plugin 'sonph/onehalf', {'rtp': 'vim/'}     "theme
 Plugin 'chriskempson/base16-vim'            "theme
 Plugin 'morhetz/gruvbox'                    "theme

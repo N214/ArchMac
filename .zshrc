@@ -239,7 +239,7 @@ fd() {
 }
 
 ## Change directory from anywhere
-ccf() {
+cD() {
   local file
 
   file="$(locate -Ai -0 $@ | grep -z -vE '~$' | fzf --read0 -0 -1)"
